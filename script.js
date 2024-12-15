@@ -22,7 +22,7 @@ async function fetchData(
 ) {
   try {
     const response = await fetch(
-      'https://api.open-meteo.com/v1/forecast?latitude=56.4532,52.1534&longitude=9.402,-0.702&current=temperature_2m,is_day,rain,showers,snowfall,cloud_cover,wind_speed_10m,wind_gusts_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto',
+      'https://api.open-meteo.com/v1/forecast?latitude=56.4532,52.1534&longitude=9.402,-0.702&current=temperature_2m,apparent_temperature,is_day,rain,showers,snowfall,cloud_cover,wind_speed_10m,wind_direction_10m&minutely_15=lightning_potential&daily=precipitation_probability_max&timezone=Europe%2FLondon',
       {
         headers: {
           'Content-Type': 'application/json',
@@ -51,13 +51,15 @@ async function fetchData(
       console.log(data);
       return data;
     } else {
-      console.error("Data is not an array or does not have enough records.");
-    } 
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      // Handle any errors
+      console.error(
+        'Data is not an array or does not have enough records.'
+      );
     }
-};
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    // Handle any errors
+  }
+}
 
 function displayCurrentTemp(dktemp, uktemp) {
   dkCurrentTemp.textContent = `Current Temp: ${dktemp}`;
@@ -99,9 +101,9 @@ function displayCurrentDetails(countries) {
   ukWindSpeed.textContent = `Wind Speed: ${groundConditions[1][5]}`;
 }
 
-function pickIcon (country) {
-  const isRain = country.rain > 0;
-  const isSnow = country.current.snowfall > 0;
+function weatherIcon(country) {
+  const isRaining = country.current.rain > 0;
+  const isSnowing = country.current.snowfall > 0;
   const isLightRain = country.current.rain < 2.5;
   const isModerateRain = country.current.rain < 7.6;
   const isHeavyRain = country.current.rain < 51;
@@ -111,45 +113,55 @@ function pickIcon (country) {
   const isModerateCloud = country.current.cloud_cover < 50;
   const isHighCloud = country.current.cloud_cover < 100;
   const isDay = country.current.is_day;
+  let imageName = `Image/Animated/`;
 
   //If it's not raining or snowing:
   if (!isRain && !isSnow) {
-    // Cloud cover less than 1:
-    if (isLightCloud) {
-      //day? show miscellaneous1 : miscellaneous2
+    if (
+      country.current.cloud_cover < 1 &&
+      country.current.cloud_cover < 1
+    ) {
+      return isDay ? `${imageName}day.svg` : `${imageName}night.svg`;
+    } else if (isLightCloud) {
+      return isDay
+        ? `${imageName}cloudy-day-1.svg`
+        : `${imageName}cloudy-night-1.svg`;
+    } else if (isModerateCloud) {
+      return isDay
+        ? `${imageName}cloudy-day-2.svg`
+        : `${imageName}cloudy-night-2.svg`;
+    } else if (isHighCloud) {
+      return isDay
+        ? `${imageName}cloudy-day-3.svg`
+        : `${imageName}cloudy-day-3.svg`;
+    } else {
+      return `${imageName}cloudy.svg`;
     }
-
-    // Less than 12.5:
-        // if day? show cloudy1 : cloudy4
-    // Less than 50:
-        //if day? show cloudy2 : cloudy5
-    // Less than 100:
-        //if day? show cloudy3 : cloudy 6
-    // else
-        //show cloudy7
+  } else {
+    //If lightning likely: Need to understand why we have 288 data points.
+    //show thunder.svg
+    if (isLightCloud) {
+      if (isSnowing) {
+      }
+    }
   }
 
-// Else:
-    //If lightning likely:
-      //show miscellaneous 3
-    //Else if cloud cover < 12.5:
-        // If snowing ? show snowy1 : rainy1
-    //Else if cloud cover < 100:
-      //If raining && less than 2.5mm || snowing and less than 0.1:
-        //snowing ? snowy2 : rainy2
-      // Else
-        //snowing? snowy3 : rainy3
-    //Else(cloud cover 100)
-      //If raining && less than 2.5mm || snowing and less than 0.1:
-        //snowing ? snowy4 : rainy4
-      //If raining && less than 7.6 || snowing and less than 2.6
-        // snowing ? snowy5 : rainy5
-      //If raining && less than 51 || snowing
-        //snowing ? snowy6 || rainy6
-      //else 
-        //rainy7
-
-
+  //Else if cloud cover < 12.5:
+  // If snowing ? show snowy1 : rainy1
+  //Else if cloud cover < 100:
+  //If raining && less than 2.5mm || snowing and less than 0.1:
+  //snowing ? snowy2 : rainy2
+  // Else
+  //snowing? snowy3 : rainy3
+  //Else(cloud cover 100)
+  //If raining && less than 2.5mm || snowing and less than 0.1:
+  //snowing ? snowy4 : rainy4
+  //If raining && less than 7.6 || snowing and less than 2.6
+  // snowing ? snowy5 : rainy5
+  //If raining && less than 51 || snowing
+  //snowing ? snowy6 || rainy6
+  //else
+  //rainy7
 }
 
 fetchData(
@@ -158,15 +170,11 @@ fetchData(
   displayCurrentDetails
 );
 
-
-
-
-// rain: 
+// rain:
 // light <2.5  moderate <7.6  heavy <=50 violent >50
 
 //snow:
 // light: <1cm moderate < 2.6 else heavy
 
 //cloudcover:
-    //1okta <12.5 4oktas <50 7oktas <100 total-cover: 100
-
+//1okta <12.5 4oktas <50 7oktas <100 total-cover: 100
