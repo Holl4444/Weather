@@ -1,6 +1,3 @@
-// Get sunrise/set time or find way to set Day Night accurately suntimes package on NPM getSunriseDateTimeUtc?
-// Think how to use details to update icon
-//find icons to use
 const dkCurrentTemp = document.getElementById('dk-ct');
 const ukCurrentTemp = document.getElementById('uk-ct');
 const dkChanceToRain = document.getElementById('dk-rain-chance');
@@ -17,10 +14,6 @@ const dkSnow = document.getElementById('dk-snow');
 const ukSnow = document.getElementById('uk-snow');
 const dkWindSpeed = document.getElementById('dk-wind-speed');
 const ukWindSpeed = document.getElementById('uk-wind-speed');
-const dkWindGusts = document.getElementById('dk-gusts');
-const ukWindGusts = document.getElementById('uk-gusts');
-
-let dataLength;
 
 async function fetchData(
   displayCurrentTemp,
@@ -40,25 +33,31 @@ async function fetchData(
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    // Handle your data
-    console.log(data);
-    displayCurrentTemp(
-      data[0].current.temperature_2m,
-      data[1].current.temperature_2m
-    );
-    displayChanceToRain(
-      data[0].daily.precipitation_probability_max[0],
-      data[1].daily.precipitation_probability_max[0],
-      data[0].daily_units.precipitation_probability_max
-    );
-    displayCurrentDetails(data);
+    if (Array.isArray(data) && data.length >= 2) {
+      const britain = data[0];
+      const denmark = data[1];
 
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    // Handle any errors
-  }
-}
+      // Handle data
+      displayCurrentTemp(
+        denmark.current.temperature_2m,
+        britain.current.temperature_2m
+      );
+      displayChanceToRain(
+        denmark.daily.precipitation_probability_max[0],
+        britain.daily.precipitation_probability_max[0],
+        denmark.daily_units.precipitation_probability_max
+      );
+      displayCurrentDetails(data);
+      console.log(data);
+      return data;
+    } else {
+      console.error("Data is not an array or does not have enough records.");
+    } 
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // Handle any errors
+    }
+};
 
 function displayCurrentTemp(dktemp, uktemp) {
   dkCurrentTemp.textContent = `Current Temp: ${dktemp}`;
@@ -71,9 +70,8 @@ function displayChanceToRain(dkRChance, ukRChance, unit) {
 }
 
 function displayCurrentDetails(countries) {
-  let precipitation = [];
+  let groundConditions = [];
   for (let country of countries) {
-    let csrw = [];
     // [country:[[0] = cloud, [1] = sun, [2] = rain, [3] = showers, [4] = snowfall, [5] = windspeed, [6] = windgusts]]
     let countryDetails = [
       country.current.cloud_cover,
@@ -84,23 +82,74 @@ function displayCurrentDetails(countries) {
       country.current.wind_speed_10m,
       country.current.wind_gusts_10m,
     ];
-    precipitation.push(countryDetails);
+    groundConditions.push(countryDetails);
   }
-  console.log(precipitation);
-  dkCloud.textContent = `Cloud Cover: ${precipitation[0][0]}`;
-  ukCloud.textContent = `Cloud Cover: ${precipitation[1][0]}`;
-  dkSun.textContent = `Sunshine Strength: ${precipitation[0][1]}`;
-  ukSun.textContent = `Sunshine Strength: ${precipitation[1][1]}`;
-  dkRain.textContent = `Rain Strength: ${precipitation[0][2]}`;
-  ukRain.textContent = `Rain Strength: ${precipitation[1][2]}`;
-  dkShowers.textContent = `Rain Showers: ${precipitation[0][3]}`;
-  ukShowers.textContent = `Rain Showers: ${precipitation[1][3]}`;
-  dkSnow.textContent = `Snow Strength: ${precipitation[0][4]}`;
-  ukSnow.textContent = `Snow Strength: ${precipitation[1][4]}`;
-  dkWindSpeed.textContent = `Wind Speed: ${precipitation[0][5]}`;
-  ukWindSpeed.textContent = `Wind Speed: ${precipitation[1][5]}`;
-  dkWindGusts.textContent = `Wind Gusts: ${precipitation[0][6]}`;
-  ukWindGusts.textContent = `Wind Gusts: ${precipitation[1][6]}`;
+
+  dkCloud.textContent = `Cloud Cover: ${groundConditions[0][0]}`;
+  ukCloud.textContent = `Cloud Cover: ${groundConditions[1][0]}`;
+  dkSun.textContent = `Sunshine Strength: ${groundConditions[0][1]}`;
+  ukSun.textContent = `Sunshine Strength: ${groundConditions[1][1]}`;
+  dkRain.textContent = `Rain Strength: ${groundConditions[0][2]}`;
+  ukRain.textContent = `Rain Strength: ${groundConditions[1][2]}`;
+  dkShowers.textContent = `Rain Showers: ${groundConditions[0][3]}`;
+  ukShowers.textContent = `Rain Showers: ${groundConditions[1][3]}`;
+  dkSnow.textContent = `Snow Strength: ${groundConditions[0][4]}`;
+  ukSnow.textContent = `Snow Strength: ${groundConditions[1][4]}`;
+  dkWindSpeed.textContent = `Wind Speed: ${groundConditions[0][5]}`;
+  ukWindSpeed.textContent = `Wind Speed: ${groundConditions[1][5]}`;
+}
+
+function pickIcon (country) {
+  const isRain = country.rain > 0;
+  const isSnow = country.current.snowfall > 0;
+  const isLightRain = country.current.rain < 2.5;
+  const isModerateRain = country.current.rain < 7.6;
+  const isHeavyRain = country.current.rain < 51;
+  const isLightSnow = country.current.snowfall < 1;
+  const isModerateSnow = country.current.snowfall < 2.6;
+  const isLightCloud = country.current.cloud_cover < 12.5;
+  const isModerateCloud = country.current.cloud_cover < 50;
+  const isHighCloud = country.current.cloud_cover < 100;
+  const isDay = country.current.is_day;
+
+  //If it's not raining or snowing:
+  if (!isRain && !isSnow) {
+    // Cloud cover less than 1:
+    if (isLightCloud) {
+      //day? show miscellaneous1 : miscellaneous2
+    }
+
+    // Less than 12.5:
+        // if day? show cloudy1 : cloudy4
+    // Less than 50:
+        //if day? show cloudy2 : cloudy5
+    // Less than 100:
+        //if day? show cloudy3 : cloudy 6
+    // else
+        //show cloudy7
+  }
+
+// Else:
+    //If lightning likely:
+      //show miscellaneous 3
+    //Else if cloud cover < 12.5:
+        // If snowing ? show snowy1 : rainy1
+    //Else if cloud cover < 100:
+      //If raining && less than 2.5mm || snowing and less than 0.1:
+        //snowing ? snowy2 : rainy2
+      // Else
+        //snowing? snowy3 : rainy3
+    //Else(cloud cover 100)
+      //If raining && less than 2.5mm || snowing and less than 0.1:
+        //snowing ? snowy4 : rainy4
+      //If raining && less than 7.6 || snowing and less than 2.6
+        // snowing ? snowy5 : rainy5
+      //If raining && less than 51 || snowing
+        //snowing ? snowy6 || rainy6
+      //else 
+        //rainy7
+
+
 }
 
 fetchData(
@@ -108,3 +157,16 @@ fetchData(
   displayChanceToRain,
   displayCurrentDetails
 );
+
+
+
+
+// rain: 
+// light <2.5  moderate <7.6  heavy <=50 violent >50
+
+//snow:
+// light: <1cm moderate < 2.6 else heavy
+
+//cloudcover:
+    //1okta <12.5 4oktas <50 7oktas <100 total-cover: 100
+
