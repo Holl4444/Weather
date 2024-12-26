@@ -43,8 +43,6 @@ function displayCurrentDetails(countries) {
     groundConditions.push(countryDetails);
   }
 
-  dkWeatherIcon.src = weatherIconCondition(countries[0]);
-  ukWeatherIcon.src = weatherIconCondition(countries[1]);
   dkCloud.textContent = `Cloud Cover: ${groundConditions[0][0]}`;
   ukCloud.textContent = `Cloud Cover: ${groundConditions[1][0]}`;
   dkSun.textContent = `Sunshine Strength: ${groundConditions[0][1]}`;
@@ -144,10 +142,16 @@ function weatherIconCondition(country) {
   }
 }
 
+async function displayIcon(country1, country2) {
+    dkWeatherIcon.src = weatherIconCondition(country1);
+    ukWeatherIcon.src = weatherIconCondition(country2);
+}
+
 async function fetchData(
   displayCurrentTemp,
   displayChanceToRain,
-  displayCurrentDetails
+  displayCurrentDetails,
+  displayIcon
 ) {
   try {
     const response = await fetch(
@@ -167,6 +171,8 @@ async function fetchData(
       const britain = data[1];
   
       // Handle data
+      displayIcon(denmark, britain)
+
       displayCurrentTemp(
         denmark.current.temperature_2m,
         britain.current.temperature_2m
@@ -193,7 +199,8 @@ async function fetchData(
 fetchData(
   displayCurrentTemp,
   displayChanceToRain,
-  displayCurrentDetails
+  displayCurrentDetails,
+  displayIcon
 );
 
 // rain:
