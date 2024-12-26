@@ -6,6 +6,8 @@ const dkChanceToRain = document.getElementById('dk-rain-chance');
 const ukChanceToRain = document.getElementById('uk-rain-chance');
 const dkWindSpeed = document.getElementById('dk-wind-speed');
 const ukWindSpeed = document.getElementById('uk-wind-speed');
+const dkWindDir = document.getElementById('dk-wind-dir');
+const ukWindDir = document.getElementById('uk-wind-dir'); 
 const dkWeatherIcon = document.getElementById('dk-weather-icon');
 const ukWeatherIcon = document.getElementById('uk-weather-icon');
 
