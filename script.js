@@ -45,14 +45,6 @@ function displayCurrentDetails(countries) {
 
   dkCloud.textContent = `Cloud Cover: ${groundConditions[0][0]}`;
   ukCloud.textContent = `Cloud Cover: ${groundConditions[1][0]}`;
-  dkSun.textContent = `Sunshine Strength: ${groundConditions[0][1]}`;
-  ukSun.textContent = `Sunshine Strength: ${groundConditions[1][1]}`;
-  dkRain.textContent = `Rain Strength: ${groundConditions[0][2]}`;
-  ukRain.textContent = `Rain Strength: ${groundConditions[1][2]}`;
-  dkShowers.textContent = `Rain Showers: ${groundConditions[0][3]}`;
-  ukShowers.textContent = `Rain Showers: ${groundConditions[1][3]}`;
-  dkSnow.textContent = `Snow Strength: ${groundConditions[0][4]}`;
-  ukSnow.textContent = `Snow Strength: ${groundConditions[1][4]}`;
   dkWindSpeed.textContent = `Wind Speed: ${groundConditions[0][5]}`;
   ukWindSpeed.textContent = `Wind Speed: ${groundConditions[1][5]}`;
 }
