@@ -10,6 +10,8 @@ const dkWindDir = document.getElementById('dk-wind-dir');
 const ukWindDir = document.getElementById('uk-wind-dir');
 const dkWeatherIcon = document.getElementById('dk-weather-icon');
 const ukWeatherIcon = document.getElementById('uk-weather-icon');
+const backgroundDk = document.getElementById('country_1');
+const backgroundUk = document.getElementById('country_2');
 
 function displayCurrentTemp(
   dktemp,
@@ -127,16 +129,55 @@ function weatherIconCondition(country) {
   }
 }
 
-async function displayIcon(country1, country2) {
+
+
+function displayIcon(country1, country2) {
   dkWeatherIcon.src = weatherIconCondition(country1);
   ukWeatherIcon.src = weatherIconCondition(country2);
+}
+
+function backgroundColour(myCountry) {
+  const weather = weatherIconCondition(myCountry).split(/[./-]/)[2];
+  let currentElement;
+  if (myCountry.latitude === 56.454357) {
+    currentElement = backgroundDk;
+  } else if (myCountry.latitude === 52.16) {
+    currentElement = backgroundUk;
+  }
+  switch (weather) {
+    case 'day':
+      currentElement.style.backgroundColor = ' #f9e7b6';
+      currentElement.style.color =' #0c0b0a';
+      break;
+    case 'night':
+      currentElement.style.backgroundColor = ' #141414';
+      currentElement.style.color = ' #f5f5f5';
+      break;
+    case 'cloudy':
+      currentElement.style.backgroundColor = ' #e7e6e6';
+      currentElement.style.color = ' #3d3c3c';
+      break;
+    case 'rainy':
+      currentElement.style.backgroundColor = '  #aec3dc';
+      currentElement.style.color = ' #212324';
+      break;
+    case 'snowy':
+      currentElement.style.backgroundColor = ' #def9fb';
+      currentElement.style.color = ' #002628';
+      break;
+    default:
+      currentElement.style.backgroundColor = 'rgb(14, 14, 14)';
+      currentElement.style.color = ' #002628';
+  }
+
 }
 
 async function fetchData(
   displayCurrentTemp,
   displayChanceToRain,
   displayWind,
-  displayIcon
+  displayIcon,
+  backgroundColour
 ) {
   try {
     const response = await fetch(
@@ -157,6 +198,8 @@ async function fetchData(
 
       // Handle data
       displayIcon(denmark, britain);
+      backgroundColour(denmark);
+      backgroundColour(britain);
 
       displayCurrentTemp(
         denmark.current.temperature_2m,
@@ -194,7 +237,8 @@ fetchData(
   displayCurrentTemp,
   displayChanceToRain,
   displayWind,
-  displayIcon
+  displayIcon,
+  backgroundColour
 );
 
 // rain:
