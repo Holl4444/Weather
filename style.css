@@ -6,3 +6,12 @@ main {
     display: flex;
     justify-content: space-around;
 }
+
+img {
+  width: 100%;
+  height: auto;  
+}
+
+img.wind {
+    width: 30%
+}
