@@ -3,6 +3,7 @@
 ## Contents
 * [Overview](#overview)
 * [Screenshots](#screenshots)
+* [Links](#links)
 
 ## Overview
 Taking data from https://open-meteo.com and using it to compare weather in two points in Europe.\
@@ -12,3 +13,5 @@ Keeping the information simple and clear.
 ## Screenshots
 ![](weatherVid.gif)
 ![image](https://github.com/user-attachments/assets/0cc75957-1340-492a-8212-5790004f793a)
+
+## Links
