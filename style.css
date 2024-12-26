@@ -39,7 +39,7 @@ h2 {
   padding: 1em;
   width: 50%;
   min-width: fit-content;
-  margin-bottom: 7vh;
+  margin: 0 2vw 7vh 2vw;
   letter-spacing: 0.11rem;
  color: rgb(55, 75, 102);
 }
