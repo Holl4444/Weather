@@ -43,6 +43,8 @@ function displayCurrentDetails(countries) {
     groundConditions.push(countryDetails);
   }
 
+  dkWeatherIcon.src = weatherIconCondition(countries[0]);
+  ukWeatherIcon.src = weatherIconCondition(countries[1]);
   dkCloud.textContent = `Cloud Cover: ${groundConditions[0][0]}`;
   ukCloud.textContent = `Cloud Cover: ${groundConditions[1][0]}`;
   dkSun.textContent = `Sunshine Strength: ${groundConditions[0][1]}`;
@@ -55,8 +57,6 @@ function displayCurrentDetails(countries) {
   ukSnow.textContent = `Snow Strength: ${groundConditions[1][4]}`;
   dkWindSpeed.textContent = `Wind Speed: ${groundConditions[0][5]}`;
   ukWindSpeed.textContent = `Wind Speed: ${groundConditions[1][5]}`;
-  dkWeatherIcon.src = weatherIconCondition(countries[0]);
-  ukWeatherIcon.src = weatherIconCondition(countries[1]);
 }
 
 function weatherIconCondition(country) {
@@ -165,7 +165,7 @@ async function fetchData(
     if (Array.isArray(data) && data.length >= 2) {
       const denmark = data[0];
       const britain = data[1];
-
+  
       // Handle data
       displayCurrentTemp(
         denmark.current.temperature_2m,
