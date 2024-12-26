@@ -36,10 +36,11 @@ function displayWind(
   windDir2,
   units
 ) {
+  // Wind direction image is rotated 60deg initially.
   dkWindSpeed.textContent = `Wind speed: ${windSpeed1}${units}`;
   ukWindSpeed.textContent = `Wind speed: ${windSpeed2}${units}`;
-  dkWindDir.style.transform = `rotate(${windDir1 + 180}deg)`;
-  ukWindDir.style.transform = `rotate(${windDir2 + 180}deg)`;
+  dkWindDir.style.transform = `rotate(${windDir1 + 180 - 60}deg)`;
+  ukWindDir.style.transform = `rotate(${windDir2 + 180 - 60}deg)`;
 }
 
 function weatherIconCondition(country) {

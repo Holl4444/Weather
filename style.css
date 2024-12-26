@@ -1,17 +1,17 @@
 main {
-    text-align: center;
+  text-align: center;
 }
 
 .adjacent {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 img {
   width: 100%;
-  height: auto;  
+  height: auto;
 }
 
 img.wind-dir {
-    width: 30%;
+  width: 30%;
 }
