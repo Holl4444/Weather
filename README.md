@@ -10,6 +10,6 @@ Creating a simple weather app that will compare two places.
 Keeping the information simple and clear.
 
 ## Screenshots
-![](weatherVid.gif)
+![](weatherVid(1).gif)
 ![image](https://github.com/user-attachments/assets/0cc75957-1340-492a-8212-5790004f793a)
 )
