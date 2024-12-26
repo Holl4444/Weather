@@ -1,25 +1,29 @@
 const dkCurrentTemp = document.getElementById('dk-ct');
 const ukCurrentTemp = document.getElementById('uk-ct');
+const dkFeelsLike = document.getElementById('dk-apparent');
+const ukFeelsLike = document.getElementById('uk-apparent');
 const dkChanceToRain = document.getElementById('dk-rain-chance');
 const ukChanceToRain = document.getElementById('uk-rain-chance');
 const dkCloud = document.getElementById('dk-cloud');
 const ukCloud = document.getElementById('uk-cloud');
-const dkSun = document.getElementById('dk-sun');
-const ukSun = document.getElementById('uk-sun');
-const dkRain = document.getElementById('dk-rain');
-const ukRain = document.getElementById('uk-rain');
 const dkShowers = document.getElementById('dk-showers');
 const ukShowers = document.getElementById('uk-showers');
-const dkSnow = document.getElementById('dk-snow');
-const ukSnow = document.getElementById('uk-snow');
 const dkWindSpeed = document.getElementById('dk-wind-speed');
 const ukWindSpeed = document.getElementById('uk-wind-speed');
 const dkWeatherIcon = document.getElementById('dk-weather-icon');
 const ukWeatherIcon = document.getElementById('uk-weather-icon');
 
-function displayCurrentTemp(dktemp, uktemp) {
-  dkCurrentTemp.textContent = `Current Temp: ${dktemp}`;
-  ukCurrentTemp.textContent = `Current Temp: ${uktemp}`;
+function displayCurrentTemp(
+  dktemp,
+  uktemp,
+  feelsLikeDk,
+  feelsLikeUk,
+  units
+) {
+  dkCurrentTemp.textContent = `Current Temp: ${dktemp}${units}`;
+  ukCurrentTemp.textContent = `Current Temp: ${uktemp}${units}`;
+  dkFeelsLike.textContent = `Feels like: ${feelsLikeDk}${units}`;
+  ukFeelsLike.textContent = `Feels like: ${feelsLikeUk}${units}`;
 }
 
 function displayChanceToRain(dkRChance, ukRChance, unit) {
@@ -27,26 +31,15 @@ function displayChanceToRain(dkRChance, ukRChance, unit) {
   ukChanceToRain.textContent = `Chance to rain: ${ukRChance}${unit}`;
 }
 
-function displayCurrentDetails(countries) {
-  let groundConditions = [];
-  for (let country of countries) {
-    // [country:[[0] = cloud, [1] = sun, [2] = rain, [3] = showers, [4] = snowfall, [5] = windspeed, [6] = windgusts]]
-    let countryDetails = [
-      country.current.cloud_cover,
-      100 - country.current.cloud_cover,
-      country.current.rain,
-      country.current.showers,
-      country.current.snowfall,
-      country.current.wind_speed_10m,
-      country.current.wind_gusts_10m,
-    ];
-    groundConditions.push(countryDetails);
-  }
-
-  dkCloud.textContent = `Cloud Cover: ${groundConditions[0][0]}`;
-  ukCloud.textContent = `Cloud Cover: ${groundConditions[1][0]}`;
-  dkWindSpeed.textContent = `Wind Speed: ${groundConditions[0][5]}`;
-  ukWindSpeed.textContent = `Wind Speed: ${groundConditions[1][5]}`;
+function displayWind(
+  windSpeed1,
+  windSpeed2,
+  WindDir1,
+  WindDir2,
+  units
+) {
+  dkWindSpeed.textContent = `Wind speed: ${windSpeed1}${units}`;
+  ukWindSpeed.textContent = `Wind speed: ${windSpeed2}${units}`;
 }
 
 function weatherIconCondition(country) {
@@ -122,7 +115,6 @@ function weatherIconCondition(country) {
           ? `${imageName}snowy-5.svg`
           : `${imageName}rainy-5.svg`;
       }
-      //Only one heavy option, probably basically full cloud cover anyway.
     } else if (
       (isRaining && isHeavyRain) ||
       (isSnowing && isHeavySnow)
@@ -135,14 +127,14 @@ function weatherIconCondition(country) {
 }
 
 async function displayIcon(country1, country2) {
-    dkWeatherIcon.src = weatherIconCondition(country1);
-    ukWeatherIcon.src = weatherIconCondition(country2);
+  dkWeatherIcon.src = weatherIconCondition(country1);
+  ukWeatherIcon.src = weatherIconCondition(country2);
 }
 
 async function fetchData(
   displayCurrentTemp,
   displayChanceToRain,
-  displayCurrentDetails,
+  displayWind,
   displayIcon
 ) {
   try {
@@ -161,20 +153,29 @@ async function fetchData(
     if (Array.isArray(data) && data.length >= 2) {
       const denmark = data[0];
       const britain = data[1];
-  
+
       // Handle data
-      displayIcon(denmark, britain)
+      displayIcon(denmark, britain);
 
       displayCurrentTemp(
         denmark.current.temperature_2m,
-        britain.current.temperature_2m
+        britain.current.temperature_2m,
+        denmark.current.apparent_temperature,
+        britain.current.apparent_temperature,
+        denmark.current_units.temperature_2m
       );
       displayChanceToRain(
         denmark.daily.precipitation_probability_max[0],
         britain.daily.precipitation_probability_max[0],
         denmark.daily_units.precipitation_probability_max
       );
-      displayCurrentDetails(data);
+      displayWind(
+        denmark.current.wind_speed_10m,
+        britain.current.wind_speed_10m,
+        denmark.current.wind_direction_10m,
+        britain.current.wind_direction_10m,
+        denmark.current_units.wind_speed_10m
+      );
       console.log(data);
       return data;
     } else {
@@ -191,7 +192,7 @@ async function fetchData(
 fetchData(
   displayCurrentTemp,
   displayChanceToRain,
-  displayCurrentDetails,
+  displayWind,
   displayIcon
 );
 
