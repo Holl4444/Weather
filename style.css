@@ -1,0 +1,8 @@
+main {
+    text-align: center;
+}
+
+.adjacent {
+    display: flex;
+    justify-content: space-around;
+}
