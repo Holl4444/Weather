@@ -81,3 +81,7 @@ img {
 img.wind-dir {
   width: 10%;
 }
+
+strong {
+    font-weight: bold;
+}

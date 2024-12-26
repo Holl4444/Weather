@@ -20,15 +20,15 @@ function displayCurrentTemp(
   feelsLikeUk,
   units
 ) {
-  dkCurrentTemp.textContent = `Current Temp: ${dktemp}${units}`;
-  ukCurrentTemp.textContent = `Current Temp: ${uktemp}${units}`;
-  dkFeelsLike.textContent = `Feels like: ${feelsLikeDk}${units}`;
-  ukFeelsLike.textContent = `Feels like: ${feelsLikeUk}${units}`;
+  dkCurrentTemp.textContent = `${dktemp}${units}`;
+  ukCurrentTemp.textContent = `${uktemp}${units}`;
+  dkFeelsLike.textContent = `${feelsLikeDk}${units}`;
+  ukFeelsLike.textContent = `${feelsLikeUk}${units}`;
 }
 
 function displayChanceToRain(dkRChance, ukRChance, unit) {
-  dkChanceToRain.textContent = `Chance to rain: ${dkRChance}${unit}`;
-  ukChanceToRain.textContent = `Chance to rain: ${ukRChance}${unit}`;
+  dkChanceToRain.textContent = `${dkRChance}${unit}`;
+  ukChanceToRain.textContent = `${ukRChance}${unit}`;
 }
 
 function displayWind(
@@ -39,8 +39,8 @@ function displayWind(
   units
 ) {
   // Wind direction image is rotated 60deg initially.
-  dkWindSpeed.textContent = `Wind speed: ${windSpeed1}${units}`;
-  ukWindSpeed.textContent = `Wind speed: ${windSpeed2}${units}`;
+  dkWindSpeed.textContent = `${windSpeed1}${units}`;
+  ukWindSpeed.textContent = `${windSpeed2}${units}`;
   dkWindDir.style.transform = `rotate(${windDir1 + 180 - 60}deg)`;
   ukWindDir.style.transform = `rotate(${windDir2 + 180 - 60}deg)`;
 }
