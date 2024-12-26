@@ -10,4 +10,4 @@ Creating a simple weather app that will compare two places.
 Keeping the information simple and clear.
 
 ## Screenshots
-
+![](weatherVid.gif)
