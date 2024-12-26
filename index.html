@@ -19,7 +19,7 @@
     <main>
       <h1>Weather Comparison</h1>
       <div class="adjacent">
-        <section id="country_1">
+        <section id="country_1" class="country-container">
           <div class="denmark">
             <h2>Viborg</h2>
             <img
@@ -27,23 +27,26 @@
               src=""
               alt="Current weather icon for Viborg"
             />
-            <p>Today:</p>
-            <p class="rainChance" id="dk-rain-chance">
-              Chance to rain
-            </p>
+            <div class="white-back">
+              <p class="rainChance" id="dk-rain-chance">
+                Chance to rain
+              </p>
 
-            <p class="current-temp" id="dk-ct">Current Temp</p>
-            <p class="apparent-temp" id="dk-apparent">Feels like:</p>
-            <img
-              class="wind-dir"
-              id="dk-wind-dir"
-              src="Images/Animated/weather_sagittarius.svg"
-              alt="Wind Direction"
-            />
-            <p class="wind-speed" id="dk-wind-speed">Wind Speed</p>
+              <p class="current-temp" id="dk-ct">Current Temp</p>
+              <p class="apparent-temp" id="dk-apparent">
+                Feels like:
+              </p>
+              <img
+                class="wind-dir"
+                id="dk-wind-dir"
+                src="Images/Animated/weather_sagittarius.svg"
+                alt="Wind Direction"
+              />
+              <p class="wind-speed" id="dk-wind-speed">Wind Speed</p>
+            </div>
           </div>
         </section>
-        <section id="country_2">
+        <section id="country_2" class="country-container">
           <div class="uk">
             <h2>Olney</h2>
             <img
@@ -51,20 +54,23 @@
               src=""
               alt="Current weather icon for Olney"
             />
-            <p>Today:</p>
-            <p class="rainChance" id="uk-rain-chance">
-              Chance to rain
-            </p>
+            <div class="white-back">
+              <p class="rainChance" id="uk-rain-chance">
+                Chance to rain
+              </p>
 
-            <p class="current-temp" id="uk-ct">Current Temp</p>
-            <p class="apparent-temp" id="uk-apparent">Feels like:</p>
-            <img
-              class="wind-dir"
-              id="uk-wind-dir"
-              src="Images/Animated/weather_sagittarius.svg"
-              alt="Wind Direction"
-            />
-            <p class="wind-speed" id="uk-wind-speed">Wind Speed</p>
+              <p class="current-temp" id="uk-ct">Current Temp</p>
+              <p class="apparent-temp" id="uk-apparent">
+                Feels like:
+              </p>
+              <img
+                class="wind-dir"
+                id="uk-wind-dir"
+                src="Images/Animated/weather_sagittarius.svg"
+                alt="Wind Direction"
+              />
+              <p class="wind-speed" id="uk-wind-speed">Wind Speed</p>
+            </div>
           </div>
         </section>
       </div>

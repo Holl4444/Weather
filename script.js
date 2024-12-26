@@ -129,8 +129,6 @@ function weatherIconCondition(country) {
   }
 }
 
-
-
 function displayIcon(country1, country2) {
   dkWeatherIcon.src = weatherIconCondition(country1);
   ukWeatherIcon.src = weatherIconCondition(country2);
@@ -146,30 +144,27 @@ function backgroundColour(myCountry) {
   }
   switch (weather) {
     case 'day':
-      currentElement.style.backgroundColor = ' #f9e7b6';
-      currentElement.style.color =' #0c0b0a';
+      currentElement.style.backgroundColor =
+        'rgba(249, 231, 182, 0.4)';
       break;
     case 'night':
-      currentElement.style.backgroundColor = ' #141414';
-      currentElement.style.color = ' #f5f5f5';
+      currentElement.style.backgroundColor = 'rgba(20, 20, 20, 0.4)';
       break;
     case 'cloudy':
-      currentElement.style.backgroundColor = ' #e7e6e6';
-      currentElement.style.color = ' #3d3c3c';
+      currentElement.style.backgroundColor =
+        'rgba(231, 230, 230, 0.4)';
       break;
     case 'rainy':
-      currentElement.style.backgroundColor = '  #aec3dc';
-      currentElement.style.color = ' #212324';
+      currentElement.style.backgroundColor =
+        'rgba(174, 195, 220, 0.4)';
       break;
     case 'snowy':
-      currentElement.style.backgroundColor = ' #def9fb';
-      currentElement.style.color = ' #002628';
+      currentElement.style.backgroundColor =
+        'rgba(222, 249, 251, 0.4)';
       break;
     default:
-      currentElement.style.backgroundColor = 'rgb(14, 14, 14)';
-      currentElement.style.color = ' #002628';
+      currentElement.style.backgroundColor = 'rgba(14, 14, 14, 0.4)';
   }
-
 }
 
 async function fetchData(

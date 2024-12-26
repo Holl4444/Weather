@@ -1,17 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+      background-image: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)), url(Images/yuriy-kovalev-nN1HSDtKdlw-unsplash.jpg);
+  background-size: 100vw 100vh;
+  background-position: top;
+}
+
+h1 {
+  margin-bottom: 5vh;
+}
+
+.white-back {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1em;
+  width: 65%;
+  min-width: fit-content;
+  margin-bottom: 7vh;
+}
+
 main {
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .adjacent {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  column-gap: 4vw;
+}
+
+.denmark,
+.uk {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.country-container {
+  max-width: 50%;
+  min-width: 40%;
+  border-radius: 3vw;
 }
 
 img {
-  width: 100%;
-  height: auto;
+  width: 50%;
 }
 
 img.wind-dir {
-  width: 30%;
+  width: 10%;
 }
