@@ -31,6 +31,7 @@ When I first looked at using icons I didn't intend for them to be animated. When
 Finally I  tried to make the browser look clean and clear, without being dull and to be responsive. I decided to have the background of each place change colour with the weather in a simple way to make it easy to tell conditions at a glance and to make the app look a little more varied and interesting. I added opacity to these colourful backdrops however as they were detrimental to the overall look when they were too strong.
 
 ### Built with
+JS
 HTML
 CSS
 
