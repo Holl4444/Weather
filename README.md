@@ -45,7 +45,7 @@ CSS
   ![windDisplay](https://github.com/user-attachments/assets/a866041a-1185-4ad2-a303-da0bd01ead2f)
 
 ### Continued development
-If I return to theis project in the future I will add an overview of the week ahead and more importantly allow the user to pick which two places to compare, as well as making a mobile friendly veraion.
+If I return to this project in the future I will add an overview of the week ahead and more importantly allow the user to pick which two places to compare, as well as making a mobile friendly veraion.
 
 ### Useful resources
 Open-meteo API: https://open-meteo.com/en/docs/
