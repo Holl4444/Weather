@@ -1,5 +1,8 @@
 # $${\color{#e8a71a}One Day}$$ $${\color{#2d7cad}Weather App}$$
 
+![image](https://github.com/user-attachments/assets/dcc5bc55-65fc-44f6-b501-30367baee2cb)
+
+
 ## Contents
 * [Overview](#overview)
 * [Screenshots](#screenshots)
