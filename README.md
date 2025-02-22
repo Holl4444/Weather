@@ -1,9 +1,8 @@
-# One Day Weather App
+# $${\color{#e8a71a}One Day}$$ $${\color{#2d7cad}Weather App}$$
 
 ## Contents
 * [Overview](#overview)
 * [Screenshots](#screenshots)
-* [Links](#links)
 * [Process](#the-process)
 * [Built With](#built-with)
 * [What I learnt](#what-i-learnt)
@@ -17,10 +16,6 @@ Keeping the information simple and clear.
 ## Screenshots
 ![](weatherVid.gif)
 ![image](https://github.com/user-attachments/assets/0cc75957-1340-492a-8212-5790004f793a)
-
-## Links
-Github page: 
-https://holl4444.github.io/Weather/
 
 ## The Process
 I found the brilliant open-meteo API and looked through the documentation. I initially pulled lots of information, as I wasn't certain what I would ultimately end up using. The site is brilliant because it automates query parameters for you based on your selections. It was much less complicated than the API I had used previously.
